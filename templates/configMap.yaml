@@ -1,0 +1,35 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata: 
+#   name: {{ $.Release.Name }}-configmap
+#   namespace: {{ $.Values.Namespace }}
+# data:
+#   APISERVER_HOST: "api.mealman.vivasoftltd.com"
+#   APISERVER_PORT: "1323"
+#   MONGO_INITDB_ROOT_USERNAME: "admin"
+#   MONGO_INITDB_ROOT_PASSWORD: "ms39U4dsWszFN$Tv"
+#   MONGO_INITDB_DATABASE: "general"
+#   MONGO_HOST: "ec2-54-242-48-155.compute-1.amazonaws.com"
+#   MONGO_PORT: "27017"
+
+#   SMTP_HOST: "email-smtp.eu-west-1.amazonaws.com"
+#   SMTP_PORT: "587"
+#   SMTP_USERNAME: "AKIAUFGVMH6EFNOL6TOA"
+#   SMTP_PASSWORD: "BEvwdvQDIBOMx8Y/yZVHnhGndaT214EhQW7T7CUOONFM"
+
+#   JWT_SECRET: "Cv9YS2U6v8ct"
+
+#   AWS_S3_USERNAME: "meal.management"
+#   AWS_ACCESS_KEY_ID: "AKIAUFGVMH6EJPN54EMP"
+#   AWS_SECRET_ACCESS_KEY: "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"
+#   AWS_S3_BUCKET: "mealmanagement"
+#   AWS_REGION: "ap-south-1"
+
+#   DOCKER_INFLUXDB_INIT_MODE: "setup"
+#   DOCKER_INFLUXDB_INIT_USERNAME: "admin"
+#   DOCKER_INFLUXDB_INIT_PASSWORD: "3T2t45DXM7he35qY"
+#   DOCKER_INFLUXDB_INIT_ORG: "vivasoftltd"
+#   DOCKER_INFLUXDB_INIT_BUCKET: "meal-participation"
+#   DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: "SUdgwuJB2t1IKCbX-hssXRsdBOVVDEpDXdTq_GE7gYE0zWb1zvFQOYIABqRNKptOPsmpiSICTkVoNBcx83Lkmg=="
+#   INFLUXDB_HOST: "ec2-54-242-48-155.compute-1.amazonaws.com"
+#   INFLUXDB_PORT: "8086"

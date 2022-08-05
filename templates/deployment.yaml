@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-deployment
+  namespace: {{ $.Values.Namespace }}
+  labels:
+    app: {{ $.Release.Name }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name }}
+        tier: backend
+    spec:
+      containers:
+        - name: {{ $.Release.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag}}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.targetPort }}
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+          livenessProbe:
+            httpGet:
+              path: {{ $.Values.deployment.livenessProbe.path }}
+              port: {{ .Values.targetPort }}
+            initialDelaySeconds: {{ $.Values.deployment.livenessProbe.delay }}
+            periodSeconds: {{ $.Values.deployment.livenessProbe.period }}
+            timeoutSeconds: {{ $.Values.deployment.livenessProbe.timeout }}
+          readinessProbe:
+            httpGet:
+              path: {{ $.Values.deployment.readinessProbe.path }}
+              port: {{ .Values.targetPort }}
+            initialDelaySeconds: {{ $.Values.deployment.readinessProbe.delay }}
+            periodSeconds: {{ $.Values.deployment.readinessProbe.period }}
+            timeoutSeconds: {{ $.Values.deployment.readinessProbe.timeout }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
